@@ -1,0 +1,66 @@
+body {
+	font-size: 18px;
+	font-family: Helvetica;
+	color: #333;
+	background-color: #eee;
+}
+
+$container-size: 300px;
+$first-position: rotate(45deg);
+$border-size: 1px solid;
+$yellow: rgba(255, 255, 0, 0.5);
+$gold: rgba(255, 215, 0, 0.5);
+$orange: rgba(255, 165, 0, 0.5);
+$orangered: rgba(255, 100, 0, 0.5);
+$red: rgba(255, 0, 0, 0.5);
+
+.parent {
+	color: orange;
+	font-size: 22px;
+
+	& > div {
+		border: 2px solid;
+		width: 20px;
+	}
+}
+
+.lotus {
+	width: $container-size;
+	height: $container-size;
+	border: $border-size;
+	position: relative;
+}
+
+.lotus > div {
+	position: absolute;
+	width: $container-size * 0.666;
+	height: $container-size * 0.666;
+	border: $border-size;
+	border-radius: 0 70% 50% 70%;
+	left: 0;
+	top: 70px;
+	transform: $first-position;
+	transform-origin: $container-size * 0.5 $container-size * 0.5;
+	animation-duration: 6000ms;
+	animation-fill-mode: forwards;
+}
+
+$colors: $yellow, $gold, $orange, $orangered, $red;
+
+@for $n from 1 through 5 {
+
+	.lotus > div:nth-child(#{$n}) {
+		background-color: nth($colors, $n);
+		animation-name: bloom-#{$n};
+	}
+
+	@keyframes bloom-#{$n} {
+	0% {
+		transform: $first-position;
+	}
+
+	100% {
+		transform: rotate(($n - 2) * 45deg);
+	}
+}
+}
